@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -28,6 +29,15 @@ namespace Tedd.ModuleLoader
         {
             foreach (var type in assemblies.GetTypeInfoOf<T>())
                 services.AddSingleton(typeof(T), (T)Activator.CreateInstance(type));
+
+            return services;
+        }
+
+        public static IServiceCollection AddHostedService<T>(this IServiceCollection services, IList<Assembly> assemblies) where T : class, IHostedService
+        {
+            // https://github.com/aspnet/Hosting/blob/f9d145887773e0c650e66165e0c61886153bcc0b/src/Microsoft.Extensions.Hosting.Abstractions/ServiceCollectionHostedServiceExtensions.cs
+            foreach (var implementationType in assemblies.GetTypeInfoOf<T>())
+                services.AddTransient(typeof(IHostedService), implementationType);
 
             return services;
         }

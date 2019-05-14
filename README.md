@@ -1,3 +1,7 @@
+# Dependency
+References `Microsoft.Extensions.DependencyInjection.Abstractions` for AddScoped<T>, AddTransient<T> and AddSingleton<T>.
+References `Microsoft.Extensions.Hosting.Abstractions` to reference `IHostedService` in `AddHostedService<T>`.
+
 # Examples
 
 ## Create instances directly
