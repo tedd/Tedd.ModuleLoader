@@ -24,7 +24,7 @@ namespace Tedd.ModuleLoader.Test
                Assert.True(module.Add(2, 3) == 5);
            });
 
-            var b=builder.Build();
+            var b = builder.Build();
             //b.Run();
         }
 

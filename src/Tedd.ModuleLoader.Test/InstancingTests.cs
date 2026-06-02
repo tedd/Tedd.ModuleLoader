@@ -33,7 +33,7 @@ namespace Tedd.ModuleLoader.Test
             Assert.True(AssemblyLoader.LoadDirectory(".").GetTypeInfoOf<ICalcModule>().Count > 1);
         }
 
-              [Fact]
+        [Fact]
         public void AssemblyInstancesWithArgs()
         {
 
@@ -58,7 +58,7 @@ namespace Tedd.ModuleLoader.Test
                 .GetTypeInfoOf<ICalcModule>()
                 .CreateInstances<ICalcModule>();
 
-            Assert.True(modules.Count >1);
+            Assert.True(modules.Count > 1);
 
             foreach (var module in modules)
             {
