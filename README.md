@@ -1,42 +1,95 @@
-# Dependency
-References `Microsoft.Extensions.DependencyInjection.Abstractions` for AddScoped<T>, AddTransient<T> and AddSingleton<T>.
-References `Microsoft.Extensions.Hosting.Abstractions` to reference `IHostedService` in `AddHostedService<T>`.
+# Tedd.ModuleLoader
 
-# Examples
+A deterministic framework for dynamic assembly resolution and instantiation within modern .NET environments.
 
-## Create instances directly
-Load all files in directory (with default filter of *.dll). Create an instance of all classes that inherit from ICalcModule.
+## Architectural Execution Flow
 
-`var modules = AssemblyLoader.LoadDirectory(".").CreateInstances<ICalcModule>();`
+The `Tedd.ModuleLoader` architecture operates on a strict dichotomy between established operational mechanics and structural hypotheses for future framework iterations. The structural integrity relies upon precise `AssemblyLoadContext` isolation and deterministic reflection paradigms.
 
-or if ctor requires arguments
+### Established Framework Capabilities
 
-`var modules = AssemblyLoader.LoadDirectory(".").CreateInstances<ICtorArgsModule>(new object[] { "Test", 123 });`
+The functional core provides immediate, validated mechanics for assembly integration:
+- **Dynamic Assembly Loading:** Utilizes standard `AssemblyLoadContext` methodologies to securely and deterministically inject external `.dll` files into the active application domain based on explicit or pattern-matched paths.
+- **Generic Type Discovery:** Employs advanced reflection abstractions (`GetTypeInfoOf<T>`) to rapidly isolate concrete implementations of defined contracts (interfaces or base classes).
+- **Dependency Injection Parity:** Seamless integration with standard `IServiceCollection` constructs, natively supporting scoped, transient, and singleton lifecycles (`AddScoped<T>`, `AddTransient<T>`, `AddSingleton<T>`, `AddHostedService<T>`).
 
-## Get TypeInfo
-Load all files in directory (with default filter of *.dll). Find TypeInfo for all classes that inherit from ICalcModule.
+### Planned Future Enhancements (Hypotheses)
 
-`var types = AssemblyLoader.LoadDirectory(".").GetTypeInfoOf<ICalcModule>();`
+The following architectural paradigms are currently under development and should not be considered functional in the existing production deployment:
+- **Hierarchical Data Binding:** A structured context propagation system intended to establish reactive, cascading variable assignments across dynamically instantiated module boundaries.
+- **Routed Event Infrastructure:** A decoupled messaging topology designed to propagate localized, cross-module events systematically through a hierarchical domain model.
 
-## Create instance from TypeInfo
+### Integrated Structural Components
+- **Retro-Computing Contextual Controls:** Newly integrated structural components for legacy compatibility abstractions seamlessly interpreting and rendering DOS-era UI controls within a contemporary, generic binding context.
 
-`types.CreateInstances<ICalcModule>()`
+## Dependencies
 
-## Dependency injection
-`services.AddScoped<ICalcModule>(AssemblyLoader.LoadDirectory("."));`
+- References `Microsoft.Extensions.DependencyInjection.Abstractions` for `AddScoped<T>`, `AddTransient<T>`, and `AddSingleton<T>`.
+- References `Microsoft.Extensions.Hosting.Abstractions` for integration with `IHostedService` via `AddHostedService<T>`.
 
-or
+## Operational Examples
 
-`services.AddTransient<ICalcModule>(AssemblyLoader.LoadDirectory("."));`
+### Direct Instantiation
 
-or
+Load all candidate assemblies within a directory (default filter `*.dll`) and synthesize instances for all exported types inheriting from the `ICalcModule` contract:
 
-`services.AddSingleton<ICalcModule>(AssemblyLoader.LoadDirectory("."));`
+```csharp
+var modules = AssemblyLoader.LoadDirectory(".").CreateInstances<ICalcModule>();
+```
 
-## Filter what files to load
+Constructor arguments can be explicitly injected:
 
-* .Net Directory.GetFiles filter:
-`AssemblyLoader.LoadDirectory(".", "*.Module1.dll")`
-* Regex filter, case insensitive: `AssemblyLoader.LoadDirectory(".", @"Test.*Module1\.dll$", false)`
-* Regex filter, case sensitive: `AssemblyLoader.LoadDirectory(".", @"Test.*Module1\.dll$", true)`
-* Custom list of files: `AssemblyLoader.LoadDirectory(files)` where files is an IEnumerable (i.e. List, Array or LINQ result) of string.
+```csharp
+var modules = AssemblyLoader.LoadDirectory(".").CreateInstances<ICtorArgsModule>(new object[] { "Test", 123 });
+```
+
+### Type Introspection
+
+Isolate structural type definitions (`TypeInfo`) for all candidate classes inheriting from `ICalcModule`:
+
+```csharp
+var types = AssemblyLoader.LoadDirectory(".").GetTypeInfoOf<ICalcModule>();
+```
+
+Synthesize instances directly from the collected `TypeInfo` references:
+
+```csharp
+var modules = types.CreateInstances<ICalcModule>();
+```
+
+### Dependency Injection Integration
+
+Bind discovered module implementations seamlessly into the standard service collection:
+
+```csharp
+// Scoped Lifecycle
+services.AddScoped<ICalcModule>(AssemblyLoader.LoadDirectory("."));
+
+// Transient Lifecycle
+services.AddTransient<ICalcModule>(AssemblyLoader.LoadDirectory("."));
+
+// Singleton Lifecycle
+services.AddSingleton<ICalcModule>(AssemblyLoader.LoadDirectory("."));
+```
+
+### Assembly Resolution Filtering
+
+Assemblies can be explicitly filtered during the load context phase using standard `.NET` wildcards, complex Regular Expressions, or predefined explicit enumerations:
+
+- **Standard .NET Globbing:**
+  ```csharp
+  var modules = AssemblyLoader.LoadDirectory(".", "*.Module1.dll");
+  ```
+- **Regex Filter (Case Insensitive):**
+  ```csharp
+  var modules = AssemblyLoader.LoadDirectory(".", @"Test.*Module1\.dll$", false);
+  ```
+- **Regex Filter (Case Sensitive):**
+  ```csharp
+  var modules = AssemblyLoader.LoadDirectory(".", @"Test.*Module1\.dll$", true);
+  ```
+- **Explicit Enumeration:**
+  ```csharp
+  var files = new List<string> { "Module1.dll", "Module2.dll" };
+  var modules = AssemblyLoader.LoadFiles(files);
+  ```
