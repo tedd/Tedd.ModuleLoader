@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="cp -r &quot;$(SolutionDir)Tedd.ModuleLoader.Test.Module1/$(OutDir)&quot;* &quot;$(TargetDir)&quot; 2&gt;/dev/null || true&#xD;&#xA;cp -r &quot;$(SolutionDir)Tedd.ModuleLoader.Test.Module2/$(OutDir)&quot;* &quot;$(TargetDir)&quot; 2&gt;/dev/null || true" />
+    <Exec Command="cp -r &quot;$(SolutionDir)Tedd.ModuleLoader.Test.Module1/bin/Debug/net8.0/&quot;* &quot;$(TargetDir)&quot; 2&gt;/dev/null || true&#xD;&#xA;cp -r &quot;$(SolutionDir)Tedd.ModuleLoader.Test.Module2/bin/Debug/net8.0/&quot;* &quot;$(TargetDir)&quot; 2&gt;/dev/null || true" />
   </Target>
 
 </Project>
