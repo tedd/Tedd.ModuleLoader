@@ -9,7 +9,7 @@ The `Tedd.ModuleLoader` architecture focuses on deterministic assembly loading v
 ### Established Framework Capabilities
 
 The functional core provides immediate, validated mechanics for assembly integration:
-- **Dynamic Assembly Loading:** Utilizes standard `AssemblyLoadContext` methodologies to securely and deterministically inject external `.dll` files into the active application domain based on explicit or pattern-matched paths.
+- **Dynamic Assembly Loading:** Loads external `.dll` files using `AssemblyLoadContext.Default.LoadFromAssemblyPath` from explicit or filtered file paths.
 - **Generic Type Discovery:** Employs advanced reflection abstractions (`GetTypeInfoOf<T>`) to rapidly isolate concrete implementations of defined contracts (interfaces or base classes).
 - **Dependency Injection Parity:** Seamless integration with standard `IServiceCollection` constructs, natively supporting scoped, transient, and singleton lifecycles (`AddScoped<T>`, `AddTransient<T>`, `AddSingleton<T>`, `AddHostedService<T>`).
 
