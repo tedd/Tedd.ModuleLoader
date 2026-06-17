@@ -4,7 +4,7 @@ A deterministic framework for dynamic assembly resolution and instantiation with
 
 ## Architectural Execution Flow
 
-The `Tedd.ModuleLoader` architecture operates on a strict dichotomy between established operational mechanics and structural hypotheses for future framework iterations. The structural integrity relies upon precise `AssemblyLoadContext` isolation and deterministic reflection paradigms.
+The `Tedd.ModuleLoader` architecture focuses on deterministic assembly loading via `AssemblyLoadContext.Default` and reflection-based type discovery/instantiation.
 
 ### Established Framework Capabilities
 
