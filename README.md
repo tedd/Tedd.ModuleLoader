@@ -78,15 +78,15 @@ Assemblies can be explicitly filtered during the load context phase using standa
 
 - **Standard .NET Globbing:**
   ```csharp
-  var modules = AssemblyLoader.LoadDirectory(".", "*.Module1.dll");
+  var assemblies = AssemblyLoader.LoadDirectory(".", "*.Module1.dll");
   ```
 - **Regex Filter (Case Insensitive):**
   ```csharp
-  var modules = AssemblyLoader.LoadDirectory(".", @"Test.*Module1\.dll$", false);
+  var assemblies = AssemblyLoader.LoadDirectory(".", @"Test.*Module1\.dll$", false);
   ```
 - **Regex Filter (Case Sensitive):**
   ```csharp
-  var modules = AssemblyLoader.LoadDirectory(".", @"Test.*Module1\.dll$", true);
+  var assemblies = AssemblyLoader.LoadDirectory(".", @"Test.*Module1\.dll$", true);
   ```
 - **Explicit Enumeration:**
   ```csharp
