@@ -91,5 +91,5 @@ Assemblies can be explicitly filtered during the load context phase using standa
 - **Explicit Enumeration:**
   ```csharp
   var files = new List<string> { "Module1.dll", "Module2.dll" };
-  var modules = AssemblyLoader.LoadFiles(files);
+  var assemblies = AssemblyLoader.LoadFiles(files);
   ```
