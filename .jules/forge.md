@@ -1,4 +1,4 @@
-## 2024-06-02 - NuGet Dependency and Framework Modernization
+## 2026-06-02 - NuGet Dependency and Framework Modernization
 
 **Observation:** The package uses outdated target frameworks (`netcoreapp2.0`, `netcoreapp2.1`, `netcoreapp2.2`) which are out of support and contain vulnerabilities in transitive dependencies (Microsoft.NETCore.App 2.x). The dependencies `Microsoft.Extensions.DependencyInjection.Abstractions` and `Microsoft.Extensions.Hosting.Abstractions` are at version 2.2.0. Upgrading these dependencies unconditionally to 9.0.0 is not compatible with `netcoreapp2.x` or `netstandard2.0`. Tests and examples were targeting `netcoreapp2.2`.
 
