@@ -16,11 +16,8 @@ The functional core provides immediate, validated mechanics for assembly integra
 ### Planned Future Enhancements (Hypotheses)
 
 The following architectural paradigms are currently under development and should not be considered functional in the existing production deployment:
-- **Hierarchical Data Binding:** A structured context propagation system intended to establish reactive, cascading variable assignments across dynamically instantiated module boundaries.
-- **Routed Event Infrastructure:** A decoupled messaging topology designed to propagate localized, cross-module events systematically through a hierarchical domain model.
-
-### Integrated Structural Components
-- **Retro-Computing Contextual Controls:** Newly integrated structural components for legacy compatibility abstractions seamlessly interpreting and rendering DOS-era UI controls within a contemporary, generic binding context.
+- **Hierarchical Data Binding:** A structured context propagation system intended to establish reactive, cascading variable assignments across dynamically instantiated module boundaries. This system hypothesizes a dependency injection topology that auto-resolves cascading parameter scopes during module activation, allowing parent state to flow deterministically to child types.
+- **Routed Event Infrastructure:** A decoupled messaging topology designed to propagate localized, cross-module events systematically through a hierarchical domain model. This mechanism proposes an `IEventRouter` contract to facilitate loosely coupled pub/sub communication channels without enforcing direct interface dependencies between discovered assemblies.
 
 ## Dependencies
 
@@ -40,7 +37,7 @@ var modules = AssemblyLoader.LoadDirectory(".").CreateInstances<ICalcModule>();
 Constructor arguments can be explicitly injected:
 
 ```csharp
-var modules = AssemblyLoader.LoadDirectory(".").CreateInstances<ICtorArgsModule>(new object[] { "Test", 123 });
+var modules = AssemblyLoader.LoadDirectory(".").CreateInstances<ICtorArgsModule>(["Test", 123]);
 ```
 
 ### Type Introspection
@@ -90,6 +87,6 @@ Assemblies can be explicitly filtered during the load context phase using standa
   ```
 - **Explicit Enumeration:**
   ```csharp
-  var files = new List<string> { "Module1.dll", "Module2.dll" };
+  List<string> files = ["Module1.dll", "Module2.dll"];
   var assemblies = AssemblyLoader.LoadFiles(files);
   ```
