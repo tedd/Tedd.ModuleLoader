@@ -1,38 +1,31 @@
-﻿using Xunit;
+using Xunit;
 
 namespace Tedd.ModuleLoader.Test
 {
     public class FilenameTests
     {
-        [Fact]
-        public void FilenameFilter()
+        [Theory]
+        [InlineData("*.Module1.dll", 1)]
+        [InlineData("XXX", 0)]
+        public void FilenameFilter_Test(string pattern, int expectedCount)
         {
-            Assert.True(AssemblyLoader.LoadDirectory(".", "*.Module1.dll").Count == 1);
+            Assert.Equal(expectedCount, AssemblyLoader.LoadDirectory(".", pattern).Count);
         }
-        [Fact]
-        public void FilenameFilterNoMatch()
+
+        [Theory]
+        [InlineData(@"Test.*Module1\.dll$", 1)]
+        [InlineData("test.*module1XXX", 0)]
+        public void FilenameFilterRegex_Test(string pattern, int expectedCount)
         {
-            Assert.True(AssemblyLoader.LoadDirectory(".", "XXX").Count == 0);
+            Assert.Equal(expectedCount, AssemblyLoader.LoadDirectory(".", pattern, false).Count);
         }
-        [Fact]
-        public void FilenameFilterRegex()
+
+        [Theory]
+        [InlineData(@"test.*module1.*\.dll$", 1)]
+        [InlineData("test.*module1XXX", 0)]
+        public void FilenameFilterRegexIgnoreCase_Test(string pattern, int expectedCount)
         {
-            Assert.True(AssemblyLoader.LoadDirectory(".", @"Test.*Module1\.dll$", false).Count == 1);
-        }
-        [Fact]
-        public void FilenameFilterRegexNoMatch()
-        {
-            Assert.True(AssemblyLoader.LoadDirectory(".", "test.*module1XXX", false).Count == 0);
-        }
-        [Fact]
-        public void FilenameFilterRegexIgnoreCase()
-        {
-            Assert.True(AssemblyLoader.LoadDirectory(".", @"test.*module1.*\.dll$", true).Count == 1);
-        }
-        [Fact]
-        public void FilenameFilterRegexIgnoreCaseNoMatch()
-        {
-            Assert.True(AssemblyLoader.LoadDirectory(".", "test.*module1XXX", true).Count == 0);
+            Assert.Equal(expectedCount, AssemblyLoader.LoadDirectory(".", pattern, true).Count);
         }
     }
 }
