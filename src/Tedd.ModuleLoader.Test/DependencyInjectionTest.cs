@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
@@ -60,6 +60,22 @@ namespace Tedd.ModuleLoader.Test
 
             var b = builder.Build();
             //b.Run();
+        }
+
+        [Fact]
+        public void RegisterHostedService()
+        {
+            var builder = new HostBuilder()
+           .ConfigureServices((hostingContext, services) =>
+           {
+               services.AddHostedService<IHostedModule>(AssemblyLoader.LoadDirectory("."));
+               // Build an intermediate service provider
+               var sp = services.BuildServiceProvider();
+               var servicesList = sp.GetServices<IHostedService>();
+               Assert.True(servicesList.Any(s => s is IHostedModule));
+           });
+
+            var b = builder.Build();
         }
     }
 }
