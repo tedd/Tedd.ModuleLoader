@@ -8,3 +8,12 @@
 3. Updated code to use preprocessor directives (`#if NET8_0_OR_GREATER`) to utilize `System.Runtime.Loader.AssemblyLoadContext.Default.LoadFromAssemblyPath` for modern frameworks, and `Assembly.LoadFile` for legacy `netstandard2.0`.
 4. Modernized test projects and examples to target `net8.0` and updated test dependencies (e.g., `Microsoft.NET.Test.Sdk`, `xunit`, `xunit.runner.visualstudio`) to latest stable versions to enable testing and avoid old SDK vulnerabilities.
 5. Updated package metadata to include the `README.md` file in `Tedd.ModuleLoader.csproj` as prompted by `dotnet build`.
+
+## 2026-06-03 - Update Dependencies for net8.0 and net9.0
+
+**Observation:** The package dependencies for `net8.0` and `net9.0` target frameworks in `Tedd.ModuleLoader` and dependencies in `Tedd.ModuleLoader.Test` are outdated.
+
+**Strategic Action:**
+1. Updated `Microsoft.Extensions.DependencyInjection.Abstractions` and `Microsoft.Extensions.Hosting.Abstractions` from `8.0.0` and `9.0.0` to `9.0.2` for `net8.0` and `net9.0` targets in `Tedd.ModuleLoader.csproj`, consolidating them into a single condition group `<ItemGroup Condition="'$(TargetFramework)' == 'net8.0' Or '$(TargetFramework)' == 'net9.0'">`.
+2. Updated all outdated dependencies in `Tedd.ModuleLoader.Test.csproj` (such as `Microsoft.Extensions.*` from `9.0.0` to `9.0.2`, `Microsoft.NET.Test.Sdk` to `18.8.1`, `xunit` to `2.9.3`, and `xunit.runner.visualstudio` to `3.1.5`).
+3. Retained `2.2.0` versions for the `netstandard2.0` target in `Tedd.ModuleLoader.csproj` to maintain broad compatibility with legacy consumers.
