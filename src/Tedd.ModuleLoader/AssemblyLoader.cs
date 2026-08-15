@@ -15,7 +15,9 @@ namespace Tedd.ModuleLoader
     {
         public static IList<Assembly> LoadDirectory(string directory)
         {
-            return AssemblyLoader.LoadFiles(Directory.GetFiles(directory).Where(f => f.Substring(f.Length - 4, 4).ToLower() == ".dll"));
+            // Optimization (Time: O(n), Space: O(1) per check): Replaced f.Substring(...).ToLower() == ".dll"
+            // with EndsWith for zero allocations and reduced CPU overhead.
+            return AssemblyLoader.LoadFiles(Directory.GetFiles(directory).Where(f => f.EndsWith(".dll", StringComparison.OrdinalIgnoreCase)));
         }
 
         public static IList<Assembly> LoadDirectory(string directory, string searchPattern)
