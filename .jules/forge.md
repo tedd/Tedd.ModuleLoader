@@ -8,3 +8,15 @@
 3. Updated code to use preprocessor directives (`#if NET8_0_OR_GREATER`) to utilize `System.Runtime.Loader.AssemblyLoadContext.Default.LoadFromAssemblyPath` for modern frameworks, and `Assembly.LoadFile` for legacy `netstandard2.0`.
 4. Modernized test projects and examples to target `net8.0` and updated test dependencies (e.g., `Microsoft.NET.Test.Sdk`, `xunit`, `xunit.runner.visualstudio`) to latest stable versions to enable testing and avoid old SDK vulnerabilities.
 5. Updated package metadata to include the `README.md` file in `Tedd.ModuleLoader.csproj` as prompted by `dotnet build`.
+
+## 2024-03-24 - Forge: NuGet Dependency and Framework Modernization
+
+**Observation:**
+Project `Tedd.ModuleLoader` has outdated dependencies for `net8.0` and `net9.0`. Project `Tedd.ModuleLoader.Test` has outdated dependencies for `net8.0` including `Microsoft.Extensions.*`, `xunit`, `Microsoft.NET.Test.Sdk`, and `xunit.runner.visualstudio`. The `netstandard2.0` target in `Tedd.ModuleLoader` retains `2.2.0` to preserve legacy compatibility and is not modified.
+In `Tedd.ModuleLoader.Test`, `xunit` is deprecated and `xunit.v3` is the alternative. The current xunit is 2.7.0.
+
+**Strategic Action:**
+1. Update `Tedd.ModuleLoader` dependencies:
+   - `net8.0`: `Microsoft.Extensions.DependencyInjection.Abstractions` and `Microsoft.Extensions.Hosting.Abstractions` to `8.0.2` and `8.0.1` respectively.
+   - `net9.0`: `Microsoft.Extensions.DependencyInjection.Abstractions` and `Microsoft.Extensions.Hosting.Abstractions` to `9.0.2`.
+2. Update `Tedd.ModuleLoader.Test` dependencies to the latest available stable 9.0.x versions for Microsoft.Extensions.*, and update test dependencies to xunit 2.9.3, xunit.runner.visualstudio 3.0.2, and Microsoft.NET.Test.Sdk 17.13.0.
