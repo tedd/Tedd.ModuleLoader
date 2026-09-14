@@ -25,8 +25,8 @@
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <ItemGroup>
-        <Module1Files Include="$(SolutionDir)Tedd.ModuleLoader.Test.Module1\$(OutDir)*" />
-        <Module2Files Include="$(SolutionDir)Tedd.ModuleLoader.Test.Module2\$(OutDir)*" />
+        <Module1Files Include="$(MSBuildProjectDirectory)/../Tedd.ModuleLoader.Test.Module1/$(OutDir)*" />
+        <Module2Files Include="$(MSBuildProjectDirectory)/../Tedd.ModuleLoader.Test.Module2/$(OutDir)*" />
     </ItemGroup>
     <Copy SourceFiles="@(Module1Files)" DestinationFolder="$(TargetDir)" />
     <Copy SourceFiles="@(Module2Files)" DestinationFolder="$(TargetDir)" />
