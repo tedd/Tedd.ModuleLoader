@@ -8,3 +8,10 @@
 3. Updated code to use preprocessor directives (`#if NET8_0_OR_GREATER`) to utilize `System.Runtime.Loader.AssemblyLoadContext.Default.LoadFromAssemblyPath` for modern frameworks, and `Assembly.LoadFile` for legacy `netstandard2.0`.
 4. Modernized test projects and examples to target `net8.0` and updated test dependencies (e.g., `Microsoft.NET.Test.Sdk`, `xunit`, `xunit.runner.visualstudio`) to latest stable versions to enable testing and avoid old SDK vulnerabilities.
 5. Updated package metadata to include the `README.md` file in `Tedd.ModuleLoader.csproj` as prompted by `dotnet build`.
+
+## 2026-10-02 - NuGet Dependency and Framework Modernization
+
+**Observation:** Test projects had incorrect path separators and an outdated reference to `$(SolutionDir)` which caused build issues. Package references for test project and main project `net8.0`/`net9.0` targets were not fully up to date with the latest minor/patch versions.
+
+**Strategic Action:**
+Updated `$(SolutionDir)` to `$(MSBuildProjectDirectory)` in `Tedd.ModuleLoader.Test.csproj` and fixed paths for cross-platform support. Updated `Microsoft.Extensions.DependencyInjection.Abstractions` and `Microsoft.Extensions.Hosting.Abstractions` to latest minor/patch versions for `net8.0` and `net9.0`. Updated dependencies in test projects to latest minor/patch versions for `net8.0` framework. Validated multi-target compatibility and tested package creation.
