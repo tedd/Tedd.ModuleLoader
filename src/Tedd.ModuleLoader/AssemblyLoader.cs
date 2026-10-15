@@ -13,9 +13,11 @@ namespace Tedd.ModuleLoader
 {
     public static class AssemblyLoader
     {
+        // Optimization Note (Time Complexity: O(1) matching vs O(N) string alloc/parsing, Space Complexity: O(K) where K is matching files vs O(N) all files)
+        // Substituted string.Substring allocation and ToLower with native Directory.GetFiles wildcard search.
         public static IList<Assembly> LoadDirectory(string directory)
         {
-            return AssemblyLoader.LoadFiles(Directory.GetFiles(directory).Where(f => f.Substring(f.Length - 4, 4).ToLower() == ".dll"));
+            return AssemblyLoader.LoadFiles(Directory.GetFiles(directory, "*.dll"));
         }
 
         public static IList<Assembly> LoadDirectory(string directory, string searchPattern)
